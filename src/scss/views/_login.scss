@@ -1,0 +1,28 @@
+// ---------------------------------------------------------------------------
+// This file contains styles that are specific to the "Login" page.
+// ---------------------------------------------------------------------------
+
+#login {
+    &-content {
+        @extend %absolute-center;
+        max-width: 750px;
+        text-align: center;
+
+        button {
+            margin-top: 24px;
+
+            img {
+                @include size(24px);
+                vertical-align: sub;
+            }
+        }
+    }
+
+    #footer {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        font-size: 14px;
+        transform: translate(-50%, 0);
+    }
+}

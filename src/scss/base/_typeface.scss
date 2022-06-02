@@ -1,0 +1,33 @@
+// ---------------------------------------------------------------------------
+// Contains everything to do with typeface (headline, body, caption, etc.)
+// ---------------------------------------------------------------------------
+
+// General text mixin
+@mixin text(
+    $font-family,
+    $font-size,
+    $line-height,
+    $letter-spacing,
+    $text-transform: none,
+    $color: $color-on-background
+) {
+    margin: 0;
+    font-family: $font-family;
+    font-size: $font-size; // Fallback if rem is not supported
+    font-size: calculateRem($font-size);
+    font-weight: 400;
+    line-height: $line-height;
+    letter-spacing: $letter-spacing;
+    text-transform: $text-transform;
+    color: $color;
+}
+
+// Headings
+h1 {
+    @include text($heading-font-family, 48px, 1.2, -0.5px, uppercase);
+}
+
+// Body
+#app {
+    @include text($body-font-family, 18px, 1.8, 0.5px);
+}

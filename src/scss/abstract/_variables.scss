@@ -1,0 +1,22 @@
+// ---------------------------------------------------------------------------
+// Contains all site-wide SCSS variables
+// ---------------------------------------------------------------------------
+
+// Colors
+$color-primary: #66c0f4;
+$color-priamry-dark: #48a5ee;
+$color-on-primary: white;
+
+$color-background: #1b2838;
+$color-background-variant: #171a21;
+$color-on-background: white;
+
+$color-error: #b71c1c;
+
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@300&display=swap");
+$heading-font-family: "Raleway", sans-serif;
+$body-font-family: "Open Sans", sans-serif;
+
+// Dimensions
+$content-height: 100vh;

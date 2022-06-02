@@ -1,27 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <Login />
+  <Dashboard />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+import axios from "axios";
+import Login from "@/views/Login.vue";
+import Dashboard from "@/views/Dashboard.vue";
 
 @Options({
   components: {
-    HelloWorld,
+    Login,
+    Dashboard,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  mounted() {
+    this.checkLoggedIn();
+  }
+
+  private checkLoggedIn() {
+    axios.get("https://localhost:8080/auth/check").then((res) => {
+      console.log(res.data);
+    });
+  }
+}
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss" src="./scss/main.scss" />

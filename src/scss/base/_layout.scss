@@ -1,0 +1,13 @@
+// ---------------------------------------------------------------------------
+// Contains styles for base layout
+// ---------------------------------------------------------------------------
+
+body {
+    @extend %no-whitespace;
+}
+
+#app {
+    position: relative;
+    min-height: $content-height;
+    background-color: $color-background;
+}

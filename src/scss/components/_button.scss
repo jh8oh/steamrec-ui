@@ -1,0 +1,19 @@
+// ---------------------------------------------------------------------------
+// This file contains all styles related to the "Button" component.
+// ---------------------------------------------------------------------------
+
+button {
+    padding: 12px 60px;
+    background-color: transparent;
+    border: 2px solid $color-primary;
+    border-radius: 60px;
+    outline: none;
+    cursor: pointer;
+    @include text($body-font-family, 18px, 1.8, 2px, uppercase, $color-primary); // Fonts need
+    transition: all 0.1s ease-in;
+
+    &:hover {
+        background-color: $color-primary;
+        color: $color-on-primary;
+    }
+}
