@@ -1,6 +1,6 @@
 <template>
-  <Login />
-  <Dashboard />
+  <Login v-if="userId == null" />
+  <Dashboard v-else :userId="userId" />
 </template>
 
 <script lang="ts">
@@ -16,13 +16,17 @@ import Dashboard from "@/views/Dashboard.vue";
   },
 })
 export default class App extends Vue {
+  private userId = null;
+
   mounted() {
     this.checkLoggedIn();
   }
 
   private checkLoggedIn() {
-    axios.get("https://localhost:8080/auth/check").then((res) => {
-      console.log(res.data);
+    axios.get("http://localhost:8080/auth/check").then((res) => {
+      if (res.data.user) {
+        this.userId = res.data.user.id;
+      }
     });
   }
 }

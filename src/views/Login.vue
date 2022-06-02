@@ -18,7 +18,7 @@ import { Vue } from "vue-class-component";
 
 export default class Login extends Vue {
   private login() {
-    window.location.replace(window.location.origin + "/steam/redirect");
+    window.location.replace("http://localhost:8080/auth/redirect");
   }
 }
 </script>
