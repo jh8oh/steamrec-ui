@@ -1,24 +1,10 @@
-# steamrec-ui
+# SteamRec (UI)
 
-## Project setup
-```
-npm install
-```
+Simple frontend for SteamRec. Build files in dist then place into src/view folder in the backend for it to serve.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Stack
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Vue 3
+- SCSS
+- TypeScript
+  - Axios
