@@ -1,0 +1,42 @@
+// ---------------------------------------------------------------------------
+// This file contains styles that are specific to the "Dashboard" page.
+// ---------------------------------------------------------------------------
+
+#dashboard {
+    header {
+        padding: 12px 0;
+        margin: 0px $horizontal-margin;
+
+        button {
+            display: block;
+            padding: 4px 20px;
+            border-width: 1px;
+            border-radius: 0;
+            margin: 0 0 0 auto;
+        }
+    }
+
+    &-content {
+        display: flex;
+        align-items: flex-start;
+        margin: 48px $horizontal-margin 0;
+
+        nav {
+            margin-right: 48px;
+            ul {
+                @extend %no-whitespace;
+                list-style-type: none;
+            }
+
+            li {
+                padding: 0 8px;
+                cursor: pointer;
+            }
+
+            .active {
+                border-left: 2px solid $color-primary;
+                color: $color-primary;
+            }
+        }
+    }
+}

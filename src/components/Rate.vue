@@ -1,5 +1,5 @@
 <template>
-    <div id="rate">
-        <h1>Rate</h1>
-    </div>
+  <div id="rate">
+    <h1>Rate</h1>
+  </div>
 </template>
