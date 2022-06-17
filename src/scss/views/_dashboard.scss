@@ -18,23 +18,33 @@
 
     &-content {
         display: flex;
-        align-items: flex-start;
-        margin: 48px $horizontal-margin 0;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin: 24px 0 0;
 
         nav {
-            margin-right: 48px;
+            display: inline-block;
+            margin-bottom: 24px;
+
             ul {
+                display: inline;
                 @extend %no-whitespace;
                 list-style-type: none;
             }
 
             li {
-                padding: 0 8px;
+                display: inline;
+                padding: 2px 12px;
                 cursor: pointer;
+
+                &:first-child {
+                    margin-right: 6px;
+                }
             }
 
             .active {
-                border-left: 2px solid $color-primary;
+                border-bottom: 2px solid $color-primary;
                 color: $color-primary;
             }
         }

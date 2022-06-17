@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import Rate from "@/components/Rate.vue";
-import Rec from "@/components/Rec.vue";
+import Rate from "@/views/Rate.vue";
+import Rec from "@/views/Rec.vue";
 
 class Prop {
   userId!: string;
