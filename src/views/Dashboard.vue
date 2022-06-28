@@ -20,6 +20,9 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import { store } from "@/store";
+import axios from "axios";
+import { Game } from "@/models/game";
 import Rate from "@/views/Rate.vue";
 import Rec from "@/views/Rec.vue";
 
@@ -36,6 +39,18 @@ class Prop {
 export default class Dashboard extends Vue.with(Prop) {
   private isRate = true;
 
+  mounted() {
+    this.getAllGames();
+  }
+
+  private getAllGames() {
+    axios.get("http://localhost:8080/api/owned-games").then((res) => {
+      res.data.forEach((game: Game) => {
+        store.commit("addOwnedGame", game);
+      });
+    });
+  }
+
   private onClickRate() {
     this.isRate = true;
   }
@@ -46,6 +61,7 @@ export default class Dashboard extends Vue.with(Prop) {
 
   private logout() {
     window.location.replace("http://localhost:8080/logout");
+    store.commit("clear");
   }
 }
 </script>
