@@ -1,6 +1,5 @@
 <template>
   <div id="rate">
-    <h1>Rate</h1>
     <ul>
       <li v-for="game in games" :key="game.id">
         <GameView :game="game" />

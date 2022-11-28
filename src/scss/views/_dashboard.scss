@@ -21,7 +21,6 @@
         flex-direction: column;
         flex-wrap: nowrap;
         align-items: center;
-        margin: 24px 0 0;
 
         nav {
             display: inline-block;
@@ -46,6 +45,18 @@
             .active {
                 border-bottom: 2px solid $color-primary;
                 color: $color-primary;
+            }
+        }
+
+        &-main {
+            margin: 20px 4vw 0;
+
+            @include breakpoint(1440px) {
+                margin: 10px 2vw 0;
+            }
+
+            @include breakpoint(600px) {
+                margin: 0 100px;
             }
         }
     }

@@ -1,12 +1,22 @@
 <template>
   <figure class="game-view">
     <img
+      class="game-view-cover"
       :src="`https://cdn.akamai.steamstatic.com/steam/apps/${game.id}/header.jpg`"
     />
     <div class="game-view-rating-peek" />
+    <div class="game-view-rating-system-background" />
     <div class="game-view-rating-system">
-      <img :src="getThumbsDownSrc()" @click="onThumbsDownClicked()" />
-      <img :src="getThumbsUpSrc()" @click="onThumbsUpClicked()" />
+      <img
+        class="game-view-rating-icon"
+        :src="getThumbsDownSrc()"
+        @click="onThumbsDownClicked()"
+      />
+      <img
+        class="game-view-rating-icon"
+        :src="getThumbsUpSrc()"
+        @click="onThumbsUpClicked()"
+      />
     </div>
   </figure>
 </template>
@@ -16,10 +26,10 @@ import { Vue } from "vue-class-component";
 import axios from "axios";
 import { Game } from "@/models/game";
 
-import thumbsUpUnclicked from "@/assets/thumbs-up-unclicked.svg";
-import thumbsUpClicked from "@/assets/thumbs-up-clicked.svg";
-import thumbsDownUnclicked from "@/assets/thumbs-down-unclicked.svg";
-import thumbsDownClicked from "@/assets/thumbs-down-clicked.svg";
+import thumbsUpUnclicked from "@/assets/thumbs-up-unclicked.png";
+import thumbsUpClicked from "@/assets/thumbs-up-clicked.png";
+import thumbsDownUnclicked from "@/assets/thumbs-down-unclicked.png";
+import thumbsDownClicked from "@/assets/thumbs-down-clicked.png";
 
 class Prop {
   game!: Game;
