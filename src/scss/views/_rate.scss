@@ -4,15 +4,32 @@
 
 #rate {
     ul {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
         @extend %no-whitespace;
         list-style-type: none;
     }
 
     li {
         @extend %no-whitespace;
+    }
+
+    &-sort {
+        text-align: right;
+
+        li {
+            display: inline;
+            padding: 2px 6px;
+            cursor: pointer;
+
+            &.active {
+                color: $color-priamry-dark;
+            }
+        }
+    }
+
+    &-games-ul {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
     }
 
     .game-view {

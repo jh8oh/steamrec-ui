@@ -49,10 +49,10 @@
         }
 
         &-main {
-            margin: 20px 4vw 0;
+            margin: 0 12vw;
 
             @include breakpoint(1440px) {
-                margin: 10px 2vw 0;
+                margin: 0 6vw;
             }
 
             @include breakpoint(600px) {
