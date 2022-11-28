@@ -1,5 +1,7 @@
 export interface Game {
-  id: string;
+  id: number;
   name: string;
-  playtime: string;
+  playtime: number;
+  last_played: number;
+  rating: number;
 }

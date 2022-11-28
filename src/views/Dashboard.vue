@@ -40,12 +40,21 @@ export default class Dashboard extends Vue.with(Prop) {
   private isRate = true;
 
   mounted() {
-    this.getAllGames();
+    this.getAllGamesWithRatings();
   }
 
-  private getAllGames() {
-    axios.get("http://localhost:8080/api/owned-games").then((res) => {
-      res.data.forEach((game: Game) => {
+  private getAllGamesWithRatings() {
+    Promise.all([
+      axios.get("http://localhost:8080/api/owned-games"),
+      axios.get("https://localhost:8080/data/ratings"),
+    ]).then(([gameRes, ratingRes]) => {
+      const gameData = gameRes.data as [Game];
+      const ratingData = ratingRes.data as [{ gameId: number; rating: number }];
+
+      gameData.forEach((game) => {
+        game.rating =
+          ratingData.find((rating) => rating.gameId == game.id)?.rating ?? 0;
+
         store.commit("addOwnedGame", game);
       });
     });
