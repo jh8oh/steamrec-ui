@@ -1,8 +1,9 @@
 <template>
-  <figure class="game-view">
+  <figure class="game-view" v-if="showGame">
     <img
       class="game-view-cover"
       :src="`https://cdn.akamai.steamstatic.com/steam/apps/${game.id}/header.jpg`"
+      @error="hideGame()"
     />
     <div class="game-view-rating-peek" />
     <div class="game-view-rating-system-background" />
@@ -36,6 +37,8 @@ class Prop {
 }
 
 export default class GameView extends Vue.with(Prop) {
+  private showGame = true;
+
   private onThumbsUpClicked() {
     if (this.game.rating == 2) {
       this.rate(0);
@@ -75,6 +78,10 @@ export default class GameView extends Vue.with(Prop) {
     } else {
       return thumbsDownUnclicked;
     }
+  }
+
+  private hideGame() {
+    this.showGame = false;
   }
 }
 </script>
