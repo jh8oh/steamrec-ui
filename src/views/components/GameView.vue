@@ -25,6 +25,7 @@
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import axios from "axios";
+import { store } from "@/store";
 import { Game } from "@/models/game";
 
 import thumbsUpUnclicked from "@/assets/thumbs-up-unclicked.png";
@@ -62,6 +63,8 @@ export default class GameView extends Vue.with(Prop) {
       gameId: this.game.id,
       rating: rating,
     });
+
+    store.commit("rateGame", this.game);
   }
 
   private getThumbsUpSrc() {

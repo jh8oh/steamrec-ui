@@ -16,6 +16,14 @@ export const store = createStore<State>({
     addOwnedGame(state, game: Game) {
       state.ownedGames.push(game);
     },
+    rateGame(state, gameWithNewRating: Game) {
+      state.ownedGames.map((game) => {
+        if (game.id == gameWithNewRating.id) {
+          return gameWithNewRating;
+        }
+        return game;
+      });
+    },
     clear(state) {
       state.ownedGames = [];
     },
