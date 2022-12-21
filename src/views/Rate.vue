@@ -21,8 +21,16 @@
       </li>
     </ul>
     <ul id="rate-games-ul">
-      <li v-for="game in sortedGames" :key="game.id">
-        <GameView :game="game" />
+      <li
+        v-for="subheadingAndGames in subheadingsAndGames.entries()"
+        :key="subheadingAndGames[0]"
+      >
+        <h2>{{ subheadingAndGames[0] }}</h2>
+        <ul>
+          <li v-for="game in subheadingAndGames[1]" :key="game.id">
+            <GameView :game="game" />
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -32,33 +40,17 @@
 import { Options, Vue } from "vue-class-component";
 import { store } from "@/store";
 import { Game } from "@/models/game";
+import { getSubheadingAndGames, SortType } from "@/services/sort-games";
 
 import GameView from "./components/GameView.vue";
-
-enum SortType {
-  Name,
-  MostPlayed,
-  RecentlyPlayed,
-}
 
 @Options({
   components: {
     GameView,
   },
   computed: {
-    sortedGames() {
-      switch (this.sortType) {
-        case SortType.Name:
-          return this.games.sort((a: Game, b: Game) =>
-            a.name > b.name ? 1 : -1
-          );
-        case SortType.MostPlayed:
-          return this.games.sort((a: Game, b: Game) => b.playtime - a.playtime);
-        case SortType.RecentlyPlayed:
-          return this.games.sort(
-            (a: Game, b: Game) => b.last_played - a.last_played
-          );
-      }
+    subheadingsAndGames() {
+      return getSubheadingAndGames(this.sortType, this.games);
     },
   },
 })
