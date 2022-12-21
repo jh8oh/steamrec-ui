@@ -112,11 +112,11 @@ export function getSubheadingAndGames(sortType: SortType, games: Game[]) {
 }
 
 function generateYears() {
-  let startYear = 2003;
-  const endYear = thisYear - 1;
+  let startYear = thisYear - 1;
+  const endYear = 2003;
   const years = [];
 
-  for (; startYear <= endYear; startYear++) {
+  for (; startYear >= endYear; startYear--) {
     years.push(startYear);
   }
 
