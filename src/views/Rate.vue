@@ -20,13 +20,13 @@
         Recently Played
       </li>
     </ul>
-    <ul id="rate-games-ul">
+    <ul>
       <li
         v-for="subheadingAndGames in subheadingsAndGames.entries()"
         :key="subheadingAndGames[0]"
       >
         <h2>{{ subheadingAndGames[0] }}</h2>
-        <ul>
+        <ul class="rate-games-ul">
           <li v-for="game in subheadingAndGames[1]" :key="game.id">
             <GameView :game="game" />
           </li>
