@@ -22,12 +22,12 @@
     </ul>
     <ul>
       <li
-        v-for="subheadingAndGames in subheadingsAndGames.entries()"
-        :key="subheadingAndGames[0]"
+        v-for="[subheading, games] in subheadingsAndGames.entries()"
+        :key="subheading"
       >
-        <h2>{{ subheadingAndGames[0] }}</h2>
+        <h2>{{ subheading }}</h2>
         <ul class="rate-games-ul">
-          <li v-for="game in subheadingAndGames[1]" :key="game.id">
+          <li v-for="game in games" :key="game.id">
             <GameView :game="game" />
           </li>
         </ul>
