@@ -1,0 +1,11 @@
+// ---------------------------------------------------------------------------
+// This file contains styles that are specific to the "Recommend" page.
+// ---------------------------------------------------------------------------
+
+#rec {
+    #no-rated {
+        @extend %absolute-center;
+        max-width: 600px;
+        text-align: center;
+    }
+}
