@@ -14,7 +14,7 @@
                 type="checkbox"
                 :id="type"
                 :value="type.toLowerCase()"
-                v-model.lazy="filters.type"
+                v-model.lazy="filter.type"
               />
               <label :for="type">{{ type }}</label>
             </li>
@@ -22,11 +22,7 @@
         </li>
         <li>
           <label for="released">Released</label>
-          <input
-            type="checkbox"
-            id="released"
-            v-model.lazy="filters.released"
-          />
+          <input type="checkbox" id="released" v-model.lazy="filter.released" />
         </li>
         <li>
           <label for="recommendations">Recommendations</label>
@@ -44,44 +40,44 @@
             type="radio"
             id="acclaim"
             value="90"
-            v-model.lazy="filters.metacritic"
+            v-model.lazy="filter.metacritic"
           />
           <label for="acclaim">Universal Acclaim</label>
           <input
             type="radio"
             id="favorable"
             value="75"
-            v-model.lazy="filters.metacritic"
+            v-model.lazy="filter.metacritic"
           />
           <label for="favorable">Generally Favorable Reviews</label>
           <input
             type="radio"
             id="mixed"
             value="50"
-            v-model.lazy="filters.metacritic"
+            v-model.lazy="filter.metacritic"
           />
           <label for="mixed">Mixed or Average Reviews</label>
           <input
             type="radio"
             id="unfavorable"
             value="20"
-            v-model.lazy="filters.metacritic"
+            v-model.lazy="filter.metacritic"
           />
           <label>Generally Unfavorable Reviews</label>
           <input
             type="radio"
             id="disliked"
             value="0"
-            v-model.lazy="filters.metacritic"
+            v-model.lazy="filter.metacritic"
           />
           <label>Overwhelming Dislike</label>
         </li>
         <li>
           <label for="adult">Include adult games</label>
-          <input type="checkbox" id="adult" v-model.lazy="filters.adult" />
+          <input type="checkbox" id="adult" v-model.lazy="filter.adult" />
         </li>
       </ul>
-      <div>{{ filters }}</div>
+      <div>{{ filter }}</div>
     </div>
   </div>
 </template>
@@ -90,7 +86,7 @@
 import { Options, Vue } from "vue-class-component";
 import { store } from "@/store";
 import { Game } from "@/models/game";
-import { Filter } from "@/models/filter";
+import { Filter, defaultFilter } from "@/models/filter";
 
 @Options({
   computed: {
@@ -115,30 +111,29 @@ export default class Rec extends Vue {
   ];
 
   private games: Game[] = [];
-  private filters: Filter = {
-    type: ["game", "dlc"],
-    released: true,
-    recommendations: 200000,
-    metacritic: 75,
-    adult: false,
-  };
+  private filter: Filter = defaultFilter;
 
   created() {
     this.loadAllGames();
+    this.loadFilter();
   }
 
   private loadAllGames() {
     this.games = store.state.ownedGames;
   }
 
+  private loadFilter() {
+    this.filter = store.state.filter;
+  }
+
   // Getters & Setters
 
   private get recommendations() {
-    return this.filters.recommendations / 200000;
+    return this.filter.recommendations / 200000;
   }
 
   private set recommendations(value) {
-    this.filters.recommendations = value * 200000;
+    this.filter.recommendations = value * 200000;
   }
 }
 </script>

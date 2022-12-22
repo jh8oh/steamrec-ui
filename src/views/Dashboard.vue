@@ -40,8 +40,13 @@ class Prop {
 export default class Dashboard extends Vue.with(Prop) {
   private isRate = true;
 
-  mounted() {
+  created() {
+    this.initStore();
     this.getAllGamesWithRatings();
+  }
+
+  private initStore() {
+    store.commit("init");
   }
 
   private getAllGamesWithRatings() {
