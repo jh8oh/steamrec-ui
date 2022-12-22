@@ -3,9 +3,61 @@
 // ---------------------------------------------------------------------------
 
 #rec {
+    ul {
+        @extend %no-whitespace;
+        list-style-type: none;
+    }
+
+    li {
+        @extend %no-whitespace;
+    }
+
     #no-rated {
         @extend %absolute-center;
         max-width: 600px;
         text-align: center;
+    }
+
+    #rated {
+        display: flex;
+        flex-flow: row-reverse nowrap;
+        column-gap: 40px;
+    }
+
+    #rec-filter {
+        width: 300px;
+
+        > ul {
+            width: 300px;
+            position: fixed;
+
+            > li {
+                margin-bottom: 10px;
+            }
+        }
+
+        #recommendations {
+            width: 280px;
+
+            &-value {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .filter {
+        &-title {
+            font-size: 16px;
+        }
+
+        &-radio-label {
+            font-size: 12px;
+        }
+
+        &-types-ul {
+            display: flex;
+            flex-flow: row wrap;
+            column-gap: 10px;
+        }
     }
 }

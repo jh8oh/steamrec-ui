@@ -1,0 +1,47 @@
+// ---------------------------------------------------------------------------
+// This file contains all styles related to the "Input" component.
+// ---------------------------------------------------------------------------
+
+// Range
+
+input[type="range"] {
+    background: transparent;
+
+    &:focus {
+        outline: none;
+    }
+
+    &::-webkit-slider-runnable-track,
+    &::-moz-range-track {
+        height: 3px;
+        border-radius: 10px;
+        background: $color-primary;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+
+    &::-webkit-slider-thumb,
+    &::-moz-range-thumb,
+    &::-ms-thumb {
+        height: 16px;
+        width: 8px;
+        border-radius: 5px;
+        background: white;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+
+    &::-ms-track {
+        height: 3px;
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+        cursor: pointer;
+    }
+
+    &::-ms-fill-lower, &::-ms-fill-upper {
+        border-radius: 20px;
+        background: $color-primary;
+        border: 1px solid black;
+    }
+}
