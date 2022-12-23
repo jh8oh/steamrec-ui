@@ -9,7 +9,7 @@ export interface Filter {
 export const defaultFilter: Filter = {
   type: ["game", "dlc"],
   released: true,
-  recommendations: 200000,
+  recommendations: 1000,
   metacritic: 75,
   adult: false,
 };

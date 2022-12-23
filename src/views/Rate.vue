@@ -39,7 +39,7 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import { store } from "@/store";
-import { Game } from "@/models/game";
+import { OwnedGame } from "@/models/game";
 import { getSubheadingAndGames, SortType } from "@/services/sort-games";
 
 import GameView from "./components/GameView.vue";
@@ -55,15 +55,15 @@ import GameView from "./components/GameView.vue";
   },
 })
 export default class Rate extends Vue {
-  private games: Game[] = [];
+  private games: OwnedGame[] = [];
   private sortType: SortType = SortType.RecentlyPlayed;
   SortType: any = SortType;
 
   created() {
-    this.loadAllGames();
+    this.loadOwnedGames();
   }
 
-  private loadAllGames() {
+  private loadOwnedGames() {
     this.games = store.state.ownedGames;
   }
 

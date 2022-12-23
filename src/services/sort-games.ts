@@ -1,4 +1,4 @@
-import { Game } from "@/models/game";
+import { OwnedGame } from "@/models/game";
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -48,7 +48,7 @@ export enum SortType {
   RecentlyPlayed,
 }
 
-export function getSubheadingAndGames(sortType: SortType, games: Game[]) {
+export function getSubheadingAndGames(sortType: SortType, games: OwnedGame[]) {
   const map = new Map();
   switch (sortType) {
     case SortType.Name:

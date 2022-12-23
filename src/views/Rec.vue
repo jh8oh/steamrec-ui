@@ -110,7 +110,7 @@
           </li>
         </ul>
       </aside>
-      <div>{{ filter }}</div>
+      <section></section>
     </div>
   </div>
 </template>
@@ -118,13 +118,15 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import { store } from "@/store";
-import { Game } from "@/models/game";
+import axios from "axios";
+import { OwnedGame, RecommendedGame } from "@/models/game";
 import { Filter, defaultFilter } from "@/models/filter";
+import { FullRating } from "@/models/rating";
 
 @Options({
   computed: {
     hasNoRatedGames() {
-      return this.games.every((game: Game) => game.rating == 0);
+      return this.games.every((game: OwnedGame) => game.rating == 0);
     },
   },
 })
@@ -143,15 +145,19 @@ export default class Rec extends Vue {
     "Advertising",
   ];
 
-  private games: Game[] = [];
+  private games: OwnedGame[] = [];
   private filter: Filter = defaultFilter;
 
+  private rating: FullRating | null = null;
+  private recommendedGames: RecommendedGame[] = [];
+
   created() {
-    this.loadAllGames();
+    this.loadOwnedGames();
     this.loadFilter();
+    this.loadFullRatings();
   }
 
-  private loadAllGames() {
+  private loadOwnedGames() {
     this.games = store.state.ownedGames;
   }
 
@@ -159,14 +165,31 @@ export default class Rec extends Vue {
     this.filter = store.state.filter;
   }
 
+  private loadFullRatings() {
+    if (store.state.fullRating == null || store.state.isRatingUpdateNeeded) {
+      axios
+        .post("http://localhost:8080/data/recommend", {
+          ownedGames: this.games,
+          filter: this.filter,
+        })
+        .then((res) => {
+          this.rating = res.data.ratings as FullRating;
+          this.recommendedGames = res.data
+            .recommendedGames as RecommendedGame[];
+        });
+    } else {
+      this.rating = store.state.fullRating;
+    }
+  }
+
   // Getters & Setters
 
   private get recommendations() {
-    return this.filter.recommendations / 200000;
+    return this.filter.recommendations / 500;
   }
 
   private set recommendations(value) {
-    this.filter.recommendations = value * 200000;
+    this.filter.recommendations = value * 500;
   }
 }
 </script>

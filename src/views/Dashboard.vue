@@ -22,7 +22,7 @@
 import { Options, Vue } from "vue-class-component";
 import { store } from "@/store";
 import axios from "axios";
-import { Game } from "@/models/game";
+import { OwnedGame } from "@/models/game";
 
 import Rate from "@/views/Rate.vue";
 import Rec from "@/views/Rec.vue";
@@ -54,7 +54,7 @@ export default class Dashboard extends Vue.with(Prop) {
       axios.get("http://localhost:8080/api/owned-games"),
       axios.get("http://localhost:8080/data/ratings"),
     ]).then(([gameRes, ratingRes]) => {
-      const gameData = gameRes.data as [Game];
+      const gameData = gameRes.data as [OwnedGame];
       const ratingData = ratingRes.data as [{ gameId: number; rating: number }];
 
       gameData.forEach((game) => {

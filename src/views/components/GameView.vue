@@ -26,7 +26,7 @@
 import { Vue } from "vue-class-component";
 import axios from "axios";
 import { store } from "@/store";
-import { Game } from "@/models/game";
+import { OwnedGame } from "@/models/game";
 
 import thumbsUpUnclicked from "@/assets/thumbs-up-unclicked.png";
 import thumbsUpClicked from "@/assets/thumbs-up-clicked.png";
@@ -34,7 +34,7 @@ import thumbsDownUnclicked from "@/assets/thumbs-down-unclicked.png";
 import thumbsDownClicked from "@/assets/thumbs-down-clicked.png";
 
 class Prop {
-  game!: Game;
+  game!: OwnedGame;
 }
 
 export default class GameView extends Vue.with(Prop) {
