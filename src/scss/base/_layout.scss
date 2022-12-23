@@ -6,7 +6,7 @@ body {
     @extend %no-whitespace;
 }
 
-#app {
+.view {
     position: relative;
     min-height: $content-height;
     background-color: $color-background;

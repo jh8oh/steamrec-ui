@@ -6,13 +6,19 @@
 @import "abstract/mixins";
 
 // Base
+@import "base/animation";
 @import "base/layout";
 @import "base/typeface";
 
 // Components
 @import "components/button";
+@import "components/gameview";
+@import "components/input";
 
 // Layout
 
 // Views
 @import "views/login";
+@import "views/dashboard";
+@import "views/rate";
+@import "views/rec";

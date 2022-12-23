@@ -1,0 +1,113 @@
+// ---------------------------------------------------------------------------
+// This file contains styles that are specific to the "Recommend" page.
+// ---------------------------------------------------------------------------
+
+#rec {
+    ul {
+        @extend %no-whitespace;
+        list-style-type: none;
+    }
+
+    li {
+        @extend %no-whitespace;
+    }
+
+    #no-rated {
+        @extend %absolute-center;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    #rated {
+        display: flex;
+        flex-flow: row-reverse nowrap;
+        column-gap: 40px;
+    }
+
+    #rec-filter {
+        width: 300px;
+        flex-shrink: 0;
+
+        &-wrapper {
+            position: fixed;
+
+            > ul {
+                width: 300px;
+
+                > li {
+                    padding-bottom: 5px;
+                    border-bottom: 1px solid #ffffffaa;
+                    margin-top: 5px;
+
+                    &:last-child {
+                        padding-bottom: 0;
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .filter {
+            &-title {
+                font-size: 16px;
+            }
+
+            &-label {
+                font-size: 12px;
+            }
+
+            &-types-ul {
+                display: flex;
+                flex-flow: row wrap;
+                column-gap: 10px;
+            }
+        }
+
+        #recommendations-range {
+            width: 280px;
+
+            &-value {
+                font-size: 14px;
+            }
+        }
+
+        #refresh-button {
+            padding: 6px 30px;
+            border-width: 1px;
+            margin-top: 24px;
+        }
+    }
+
+    section {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    #loading {
+        margin-top: 30vh;
+        animation: rotate linear 5s infinite;
+    }
+
+    #rec-content {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+
+        &-empty{
+            margin-top: 10vh;
+        }
+
+        &-ul {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+        }
+
+        button {
+            margin-top: 24px;
+            margin-bottom: 48px;
+        }
+    }
+}

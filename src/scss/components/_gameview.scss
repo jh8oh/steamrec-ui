@@ -1,0 +1,57 @@
+// ---------------------------------------------------------------------------
+// This file contains all styles related to the "GameView" component.
+// ---------------------------------------------------------------------------
+
+.game-view {
+    position: relative;
+    max-width: 400px;
+    max-height: 187px;
+
+    &-cover {
+        max-width: 400px;
+        max-height: 187px;
+    }
+
+    &-rating-peek {
+        width: 100%;
+    }
+
+    %rating-system-generic {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+
+    &-rating-system {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        @extend %rating-system-generic;
+
+        &-background {
+            @extend %rating-system-generic;
+            background-color: $color-background-variant;
+        }
+    }
+
+    &-rating-icon {
+        height: 100px;
+        width: 100px;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    &:hover {
+        .game-view-rating-system,
+        .game-view-rating-icon {
+            opacity: 1;
+        }
+
+        .game-view-rating-system-background {
+            opacity: 0.8;
+        }
+    }
+}

@@ -2,8 +2,24 @@
 // Contains all site-wide SCSS mixins
 // ---------------------------------------------------------------------------
 
+// Breakpoint mixin
+@mixin breakpoint($max-width) {
+    @media screen and (max-width: $max-width) {
+        @content;
+    }
+}
+
 // Same height and width mixin
 @mixin size($size) {
     height: $size;
     width: $size;
+}
+
+// Transition mixin
+@mixin transition($args...) {
+    transition: $args;
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
 }
