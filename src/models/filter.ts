@@ -1,15 +1,15 @@
 export interface Filter {
   type: string[];
   released: boolean;
-  recommendations: number;
-  metacritic: number;
+  recommendations: { value: number; acceptNull: boolean };
+  metacritic: { value: number; acceptNull: boolean };
   adult: boolean;
 }
 
 export const defaultFilter: Filter = {
   type: ["game", "dlc"],
   released: true,
-  recommendations: 1000,
-  metacritic: 75,
+  recommendations: { value: 1000, acceptNull: false },
+  metacritic: { value: 75, acceptNull: false },
   adult: false,
 };

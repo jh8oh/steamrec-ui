@@ -18,9 +18,7 @@
                     :value="type.toLowerCase()"
                     v-model.lazy="filter.type"
                   />
-                  <label :for="type" class="filter-radio-label">{{
-                    type
-                  }}</label>
+                  <label :for="type" class="filter-label">{{ type }}</label>
                 </li>
               </ul>
             </li>
@@ -37,7 +35,7 @@
                 Recommendations
               </label>
               <span id="recommendations-range-value">
-                &gt;{{ filter.recommendations }}
+                &gt;{{ filter.recommendations.value }}
               </span>
               <input
                 type="range"
@@ -46,6 +44,14 @@
                 max="10"
                 v-model.lazy="recommendations"
               />
+              <input
+                type="checkbox"
+                id="recommendations-null"
+                v-model.lazy="filter.recommendations.acceptNull"
+              />
+              <label for="recommendations-null" class="filter-label"
+                >Include Null</label
+              >
             </li>
             <li>
               <span class="filter-title">Metacritic Score</span>
@@ -55,9 +61,9 @@
                     type="radio"
                     id="acclaim"
                     value="90"
-                    v-model.lazy="filter.metacritic"
+                    v-model.lazy="filter.metacritic.value"
                   />
-                  <label for="acclaim" class="filter-radio-label">
+                  <label for="acclaim" class="filter-label">
                     Universal&nbsp;Acclaim
                   </label>
                 </li>
@@ -66,9 +72,9 @@
                     type="radio"
                     id="favorable"
                     value="75"
-                    v-model.lazy="filter.metacritic"
+                    v-model.lazy="filter.metacritic.value"
                   />
-                  <label for="favorable" class="filter-radio-label">
+                  <label for="favorable" class="filter-label">
                     Generally&nbsp;Favorable&nbsp;Reviews
                   </label>
                 </li>
@@ -77,9 +83,9 @@
                     type="radio"
                     id="mixed"
                     value="50"
-                    v-model.lazy="filter.metacritic"
+                    v-model.lazy="filter.metacritic.value"
                   />
-                  <label for="mixed" class="filter-radio-label">
+                  <label for="mixed" class="filter-label">
                     Mixed&nbsp;or&nbsp;Average&nbsp;Reviews
                   </label>
                 </li>
@@ -88,9 +94,9 @@
                     type="radio"
                     id="unfavorable"
                     value="20"
-                    v-model.lazy="filter.metacritic"
+                    v-model.lazy="filter.metacritic.value"
                   />
-                  <label for="unfavorable" class="filter-radio-label">
+                  <label for="unfavorable" class="filter-label">
                     Generally&nbsp;Unfavorable&nbsp;Reviews
                   </label>
                 </li>
@@ -99,11 +105,21 @@
                     type="radio"
                     id="disliked"
                     value="0"
-                    v-model.lazy="filter.metacritic"
+                    v-model.lazy="filter.metacritic.value"
                   />
-                  <label for="disliked" class="filter-radio-label">
+                  <label for="disliked" class="filter-label">
                     Overwhelming&nbsp;Dislike
                   </label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="metacritic-null"
+                    v-model.lazy="filter.metacritic.acceptNull"
+                  />
+                  <label for="metacritic-null" class="filter-label"
+                    >Include Null</label
+                  >
                 </li>
               </ul>
             </li>
@@ -226,11 +242,11 @@ export default class Rec extends Vue {
   // Getters & Setters
 
   private get recommendations() {
-    return this.filter.recommendations / 500;
+    return this.filter.recommendations.value / 500;
   }
 
   private set recommendations(value) {
-    this.filter.recommendations = value * 500;
+    this.filter.recommendations.value = value * 500;
   }
 
   private setRecommendedGames(value: RecommendedGame[], clearPrevious = false) {

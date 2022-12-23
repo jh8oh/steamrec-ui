@@ -35,7 +35,14 @@
                 width: 300px;
 
                 > li {
-                    margin-bottom: 10px;
+                    padding-bottom: 5px;
+                    border-bottom: 1px solid #ffffffaa;
+                    margin-top: 5px;
+
+                    &:last-child {
+                        padding-bottom: 0;
+                        border-bottom: 0;
+                    }
                 }
             }
         }
@@ -45,7 +52,7 @@
                 font-size: 16px;
             }
 
-            &-radio-label {
+            &-label {
                 font-size: 12px;
             }
 
