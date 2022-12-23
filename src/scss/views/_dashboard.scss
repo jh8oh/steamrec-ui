@@ -49,13 +49,16 @@
         }
 
         &-main {
+            width: 76vw;
             margin: 0 12vw;
 
             @include breakpoint(1440px) {
+                width: 88vw;
                 margin: 0 6vw;
             }
 
             @include breakpoint(600px) {
+                width: calc(100vw - 100px);
                 margin: 0 100px;
             }
         }

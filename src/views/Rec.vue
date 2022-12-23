@@ -135,13 +135,18 @@
           </button>
         </div>
       </aside>
-      <section id="rec-content">
-        <ul id="rec-content-ul">
-          <li v-for="game in recommendedGames" :key="game.id">
-            <GameView :game="game" />
-          </li>
-        </ul>
-        <button @click="moreRec()">More</button>
+      <section>
+        <div v-if="isLoading">
+          <img id="loading" src="../assets/loading.png" />
+        </div>
+        <div id="rec-content" v-if="!isLoading">
+          <ul id="rec-content-ul">
+            <li v-for="game in recommendedGames" :key="game.id">
+              <GameView :game="game" />
+            </li>
+          </ul>
+          <button @click="moreRec()">More</button>
+        </div>
       </section>
     </div>
   </div>
@@ -164,6 +169,9 @@ import GameView from "./components/GameView.vue";
   computed: {
     hasNoRatedGames() {
       return this.games.every((game: OwnedGame) => game.rating == 0);
+    },
+    isLoading() {
+      return this.recommendedGames.length == 0;
     },
   },
 })

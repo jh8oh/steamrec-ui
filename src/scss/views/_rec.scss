@@ -78,11 +78,22 @@
         }
     }
 
-    #rec-content {
+    section {
         display: flex;
         flex-flow: column nowrap;
         align-items: center;
         flex-grow: 1;
+    }
+
+    #loading {
+        margin-top: 30vh;
+        animation: rotate linear 5s infinite;
+    }
+
+    #rec-content {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
 
         &-ul {
             display: flex;
