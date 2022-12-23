@@ -1,13 +1,12 @@
 import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
-import { OwnedGame } from "@/models/game";
+import { OwnedGame, RecommendedGame } from "@/models/game";
 import { Filter, defaultFilter } from "@/models/filter";
-import { FullRating } from "@/models/rating";
 
 interface State {
   ownedGames: OwnedGame[];
   filter: Filter;
-  fullRating: FullRating | null;
+  recommendedGames: RecommendedGame[];
   isRatingUpdateNeeded: boolean;
 }
 
@@ -17,7 +16,7 @@ export const store = createStore<State>({
   state: {
     ownedGames: [],
     filter: defaultFilter,
-    fullRating: null,
+    recommendedGames: [],
     isRatingUpdateNeeded: false,
   },
   mutations: {
@@ -39,17 +38,21 @@ export const store = createStore<State>({
       });
       state.isRatingUpdateNeeded = true;
     },
-    setFullRating(state, fullRating: FullRating) {
-      state.fullRating = fullRating;
-      state.isRatingUpdateNeeded = false;
-    },
     setFilter(state, filter: Filter) {
       state.filter = filter;
       localStorage.setItem("filter", JSON.stringify(filter));
     },
+    addRecommendedGame(state, recommendedGame: RecommendedGame) {
+      state.recommendedGames.push(recommendedGame);
+    },
+    resetIsRatingUpdateNeeded(state) {
+      state.isRatingUpdateNeeded = false;
+    },
     clear(state) {
       state.ownedGames = [];
       state.filter = defaultFilter;
+      state.recommendedGames = [];
+      state.isRatingUpdateNeeded = false;
     },
   },
 });

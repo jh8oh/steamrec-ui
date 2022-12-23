@@ -1,13 +1,18 @@
 <template>
-  <figure class="game-view" v-if="showGame">
+  <figure
+    class="game-view"
+    :style="{ cursor: isOwnedGame ? 'auto' : 'pointer' }"
+    v-if="showGame"
+    @click="isOwnedGame ? null : onGameClicked()"
+  >
     <img
       class="game-view-cover"
       :src="`https://cdn.akamai.steamstatic.com/steam/apps/${game.id}/header.jpg`"
       @error="hideGame()"
     />
-    <div class="game-view-rating-peek" />
-    <div class="game-view-rating-system-background" />
-    <div class="game-view-rating-system">
+    <div class="game-view-rating-peek" v-if="isOwnedGame" />
+    <div class="game-view-rating-system-background" v-if="isOwnedGame" />
+    <div class="game-view-rating-system" v-if="isOwnedGame">
       <img
         class="game-view-rating-icon"
         :src="getThumbsDownSrc()"
@@ -23,10 +28,10 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+import { Options, Vue } from "vue-class-component";
 import axios from "axios";
 import { store } from "@/store";
-import { OwnedGame } from "@/models/game";
+import { OwnedGame, RecommendedGame } from "@/models/game";
 
 import thumbsUpUnclicked from "@/assets/thumbs-up-unclicked.png";
 import thumbsUpClicked from "@/assets/thumbs-up-clicked.png";
@@ -34,14 +39,25 @@ import thumbsDownUnclicked from "@/assets/thumbs-down-unclicked.png";
 import thumbsDownClicked from "@/assets/thumbs-down-clicked.png";
 
 class Prop {
-  game!: OwnedGame;
+  game!: OwnedGame | RecommendedGame;
 }
 
+@Options({
+  computed: {
+    isOwnedGame() {
+      return "rating" in this.game;
+    },
+  },
+})
 export default class GameView extends Vue.with(Prop) {
   private showGame = true;
 
+  private onGameClicked() {
+    window.open(`https://store.steampowered.com/app/${this.game.id}`);
+  }
+
   private onThumbsUpClicked() {
-    if (this.game.rating == 2) {
+    if ((this.game as OwnedGame).rating == 2) {
       this.rate(0);
     } else {
       this.rate(2);
@@ -49,7 +65,7 @@ export default class GameView extends Vue.with(Prop) {
   }
 
   private onThumbsDownClicked() {
-    if (this.game.rating == 1) {
+    if ((this.game as OwnedGame).rating == 1) {
       this.rate(0);
     } else {
       this.rate(1);
@@ -57,7 +73,7 @@ export default class GameView extends Vue.with(Prop) {
   }
 
   private rate(rating: number) {
-    this.game.rating = rating;
+    (this.game as OwnedGame).rating = rating;
 
     axios.post("http://localhost:8080/data/ratings/rate", {
       gameId: this.game.id,
@@ -68,7 +84,7 @@ export default class GameView extends Vue.with(Prop) {
   }
 
   private getThumbsUpSrc() {
-    if (this.game.rating == 2) {
+    if ((this.game as OwnedGame).rating == 2) {
       return thumbsUpClicked;
     } else {
       return thumbsUpUnclicked;
@@ -76,7 +92,7 @@ export default class GameView extends Vue.with(Prop) {
   }
 
   private getThumbsDownSrc() {
-    if (this.game.rating == 1) {
+    if ((this.game as OwnedGame).rating == 1) {
       return thumbsDownClicked;
     } else {
       return thumbsDownUnclicked;

@@ -109,8 +109,16 @@
             <label for="adult" class="filter-title">Include adult games</label>
           </li>
         </ul>
+        <button @click="refreshRecWithNewFilter()">Refresh</button>
       </aside>
-      <section></section>
+      <section>
+        <ul>
+          <li v-for="game in recommendedGames" :key="game.id">
+            <GameView :game="game" />
+          </li>
+        </ul>
+        <button @click="moreRec()">More</button>
+      </section>
     </div>
   </div>
 </template>
@@ -119,11 +127,16 @@
 import { Options, Vue } from "vue-class-component";
 import { store } from "@/store";
 import axios from "axios";
+
 import { OwnedGame, RecommendedGame } from "@/models/game";
 import { Filter, defaultFilter } from "@/models/filter";
-import { FullRating } from "@/models/rating";
+
+import GameView from "./components/GameView.vue";
 
 @Options({
+  components: {
+    GameView,
+  },
   computed: {
     hasNoRatedGames() {
       return this.games.every((game: OwnedGame) => game.rating == 0);
@@ -148,13 +161,12 @@ export default class Rec extends Vue {
   private games: OwnedGame[] = [];
   private filter: Filter = defaultFilter;
 
-  private rating: FullRating | null = null;
   private recommendedGames: RecommendedGame[] = [];
 
   created() {
     this.loadOwnedGames();
     this.loadFilter();
-    this.loadFullRatings();
+    this.loadRecommendedGames();
   }
 
   private loadOwnedGames() {
@@ -165,21 +177,42 @@ export default class Rec extends Vue {
     this.filter = store.state.filter;
   }
 
-  private loadFullRatings() {
-    if (store.state.fullRating == null || store.state.isRatingUpdateNeeded) {
+  private loadRecommendedGames() {
+    if (
+      store.state.recommendedGames.length == 0 ||
+      store.state.isRatingUpdateNeeded
+    ) {
       axios
         .post("http://localhost:8080/data/recommend", {
-          ownedGames: this.games,
+          ownedGames: this.games.map((it) => ({
+            id: it.id,
+            rating: it.rating,
+          })),
           filter: this.filter,
         })
         .then((res) => {
-          this.rating = res.data.ratings as FullRating;
-          this.recommendedGames = res.data
-            .recommendedGames as RecommendedGame[];
+          this.setRecommendedGames(res.data as RecommendedGame[]);
+          store.commit("resetIsRatingUpdateNeeded");
         });
     } else {
-      this.rating = store.state.fullRating;
+      this.recommendedGames = store.state.recommendedGames;
     }
+  }
+
+  private refreshRecWithNewFilter() {
+    axios
+      .post("http://localhost:8080/data/recommend/update", {
+        filter: this.filter,
+      })
+      .then((res) => {
+        this.setRecommendedGames(res.data as RecommendedGame[]);
+      });
+  }
+
+  private moreRec() {
+    axios.get("http://localhost:8080/data/recommend/more").then((res) => {
+      this.setRecommendedGames(res.data as RecommendedGame[]);
+    });
   }
 
   // Getters & Setters
@@ -190,6 +223,13 @@ export default class Rec extends Vue {
 
   private set recommendations(value) {
     this.filter.recommendations = value * 500;
+  }
+
+  private setRecommendedGames(value: RecommendedGame[]) {
+    this.recommendedGames = value;
+    value.forEach((it) => {
+      store.commit("addRecommendedGame", it);
+    });
   }
 }
 </script>

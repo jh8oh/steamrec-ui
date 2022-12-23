@@ -9,5 +9,4 @@ export interface OwnedGame {
 export interface RecommendedGame {
   id: number;
   name: string;
-  score: number;
 }
