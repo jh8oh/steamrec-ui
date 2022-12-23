@@ -199,7 +199,7 @@ export default class Rec extends Vue {
           filter: this.filter,
         })
         .then((res) => {
-          this.setRecommendedGames(res.data as RecommendedGame[]);
+          this.setRecommendedGames(res.data as RecommendedGame[], true);
           store.commit("resetIsRatingUpdateNeeded");
         });
     } else {
@@ -233,8 +233,10 @@ export default class Rec extends Vue {
     this.filter.recommendations = value * 500;
   }
 
-  private setRecommendedGames(value: RecommendedGame[]) {
+  private setRecommendedGames(value: RecommendedGame[], clearPrevious = false) {
     this.recommendedGames = value;
+
+    if (clearPrevious) store.commit("clearRecommendedGames");
     value.forEach((it) => {
       store.commit("addRecommendedGame", it);
     });
