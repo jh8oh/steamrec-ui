@@ -43,9 +43,7 @@ export const store = createStore<State>({
       localStorage.setItem("filter", JSON.stringify(filter));
     },
     addRecommendedGame(state, recommendedGame: RecommendedGame) {
-      if (!state.recommendedGames.includes(recommendedGame)) {
-        state.recommendedGames.push(recommendedGame);
-      }
+      state.recommendedGames.push(recommendedGame);
     },
     clearRecommendedGames(state) {
       state.recommendedGames = [];

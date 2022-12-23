@@ -139,13 +139,19 @@
         <div v-if="isLoading">
           <img id="loading" src="../assets/loading.png" />
         </div>
-        <div id="rec-content" v-if="!isLoading">
-          <ul id="rec-content-ul">
-            <li v-for="game in recommendedGames" :key="game.id">
-              <GameView :game="game" />
-            </li>
-          </ul>
-          <button @click="moreRec()">More</button>
+        <div v-if="!isLoading">
+          <div id="rec-content-empty" v-if="isRecEmpty">
+            There are no games that match your criteria. Slacken your filters to
+            get recommendations.
+          </div>
+          <div id="rec-content" v-if="!isRecEmpty">
+            <ul id="rec-content-ul">
+              <li v-for="game in recommendedGames" :key="game.id">
+                <GameView :game="game" />
+              </li>
+            </ul>
+            <button @click="moreRec()">More</button>
+          </div>
         </div>
       </section>
     </div>
@@ -170,8 +176,8 @@ import GameView from "./components/GameView.vue";
     hasNoRatedGames() {
       return this.games.every((game: OwnedGame) => game.rating == 0);
     },
-    isLoading() {
-      return this.recommendedGames.length == 0;
+    isRecEmpty() {
+      return this.isLoading == false && this.recommendedGames.length == 0;
     },
   },
 })
@@ -193,6 +199,7 @@ export default class Rec extends Vue {
   private games: OwnedGame[] = [];
   private filter: Filter = defaultFilter;
 
+  private isLoading = true;
   private recommendedGames: RecommendedGame[] = [];
 
   created() {
@@ -223,10 +230,12 @@ export default class Rec extends Vue {
           filter: this.filter,
         })
         .then((res) => {
-          this.setRecommendedGames(res.data as RecommendedGame[], true);
+          this.isLoading = false;
+          this.setRecommendedGames(res.data as RecommendedGame[]);
           store.commit("resetIsRatingUpdateNeeded");
         });
     } else {
+      this.isLoading = false;
       this.recommendedGames = store.state.recommendedGames;
     }
   }
@@ -257,10 +266,10 @@ export default class Rec extends Vue {
     this.filter.recommendations.value = value * 500;
   }
 
-  private setRecommendedGames(value: RecommendedGame[], clearPrevious = false) {
+  private setRecommendedGames(value: RecommendedGame[]) {
     this.recommendedGames = value;
 
-    if (clearPrevious) store.commit("clearRecommendedGames");
+    store.commit("clearRecommendedGames");
     value.forEach((it) => {
       store.commit("addRecommendedGame", it);
     });

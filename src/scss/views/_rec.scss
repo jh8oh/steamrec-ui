@@ -95,6 +95,10 @@
         flex-flow: column nowrap;
         align-items: center;
 
+        &-empty{
+            margin-top: 10vh;
+        }
+
         &-ul {
             display: flex;
             flex-flow: row wrap;
