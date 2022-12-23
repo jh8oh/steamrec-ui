@@ -41,12 +41,7 @@ export default class Dashboard extends Vue.with(Prop) {
   private isRate = true;
 
   created() {
-    this.initStore();
     this.getAllGamesWithRatings();
-  }
-
-  private initStore() {
-    store.commit("init");
   }
 
   private getAllGamesWithRatings() {

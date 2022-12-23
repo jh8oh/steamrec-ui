@@ -20,12 +20,6 @@ export const store = createStore<State>({
     isRatingUpdateNeeded: false,
   },
   mutations: {
-    init(state) {
-      const filter = localStorage.getItem("filter");
-      if (filter != null) {
-        state.filter = JSON.parse(filter);
-      }
-    },
     addOwnedGame(state, game: OwnedGame) {
       state.ownedGames.push(game);
     },
@@ -40,7 +34,6 @@ export const store = createStore<State>({
     },
     setFilter(state, filter: Filter) {
       state.filter = filter;
-      localStorage.setItem("filter", JSON.stringify(filter));
     },
     addRecommendedGame(state, recommendedGame: RecommendedGame) {
       state.recommendedGames.push(recommendedGame);
