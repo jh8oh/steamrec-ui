@@ -1,9 +1,21 @@
 <template>
   <div id="dashboard" class="view">
     <header>
+      <img
+        id="settings-button"
+        src="../assets/settings.png"
+        @click="openSettingsDialog()"
+      />
       <button @click="logout()">Logout</button>
     </header>
     <div id="dashboard-content">
+      <Settings
+        v-if="settingsDialog"
+        @close-dialog="closeSettingsDialog()"
+        @wheel.prevent
+        @touchmove.prevent
+        @scroll.prevent
+      />
       <nav>
         <ul>
           <li @click="onClickRate()" :class="{ active: isRate }">Rate</li>
@@ -23,9 +35,9 @@ import { Options, Vue } from "vue-class-component";
 import { store } from "@/store";
 import axios from "axios";
 import { OwnedGame } from "@/models/game";
-
-import Rate from "@/views/Rate.vue";
-import Rec from "@/views/Rec.vue";
+import Settings from "./components/Settings.vue";
+import Rate from "./Rate.vue";
+import Rec from "./Rec.vue";
 
 class Prop {
   userId!: string;
@@ -33,11 +45,13 @@ class Prop {
 
 @Options({
   components: {
+    Settings,
     Rate,
     Rec,
   },
 })
 export default class Dashboard extends Vue.with(Prop) {
+  private settingsDialog = false;
   private isRate = true;
 
   created() {
@@ -67,6 +81,14 @@ export default class Dashboard extends Vue.with(Prop) {
 
   private onClickRec() {
     this.isRate = false;
+  }
+
+  private openSettingsDialog() {
+    this.settingsDialog = true;
+  }
+
+  private closeSettingsDialog() {
+    this.settingsDialog = false;
   }
 
   private logout() {
