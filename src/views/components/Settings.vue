@@ -16,14 +16,21 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
+import axios from "axios";
 
 export default class Settings extends Vue {
   private onMaskClick() {
     this.$emit("closeDialog");
   }
 
-  private deleteData(){
-    
+  private deleteData() {
+    axios.delete("/data/ratings").then((res) => {
+      if (res.status == 200) {
+        alert("Your data has been deleted");
+      } else {
+        alert("Error whilst deleting your data. Please try again later.");
+      }
+    });
   }
 }
 </script>

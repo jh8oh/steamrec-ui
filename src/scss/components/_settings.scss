@@ -9,6 +9,7 @@
     &-button {
         @include size(36px);
         margin-right: 24px;
+        cursor: pointer;
     }
 
     &-mask {
