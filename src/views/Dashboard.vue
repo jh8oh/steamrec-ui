@@ -60,8 +60,8 @@ export default class Dashboard extends Vue.with(Prop) {
 
   private getAllGamesWithRatings() {
     Promise.all([
-      axios.get("http://localhost:8080/api/owned-games"),
-      axios.get("http://localhost:8080/data/ratings"),
+      axios.get("https://steamrec.cyclic.app/api/owned-games"),
+      axios.get("https://steamrec.cyclic.app/data/ratings"),
     ]).then(([gameRes, ratingRes]) => {
       const gameData = gameRes.data as [OwnedGame];
       const ratingData = ratingRes.data as [{ gameId: number; rating: number }];
@@ -92,7 +92,7 @@ export default class Dashboard extends Vue.with(Prop) {
   }
 
   private logout() {
-    window.location.replace("http://localhost:8080/logout");
+    window.location.replace("https://steamrec.cyclic.app/logout");
     store.commit("clear");
   }
 }
