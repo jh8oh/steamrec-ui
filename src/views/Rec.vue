@@ -202,7 +202,7 @@ export default class Rec extends Vue {
   private isLoading = true;
   private recommendedGames: RecommendedGame[] = [];
 
-  created() {
+  mounted() {
     this.loadOwnedGames();
     this.loadFilter();
     this.loadRecommendedGames();

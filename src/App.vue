@@ -1,6 +1,6 @@
 <template>
-  <Login v-if="userId == null" />
-  <Dashboard v-else :userId="userId" />
+  <Login v-if="!isLoggedIn" />
+  <Dashboard v-else />
 </template>
 
 <script lang="ts">
@@ -16,17 +16,17 @@ import Dashboard from "@/views/Dashboard.vue";
   },
 })
 export default class App extends Vue {
-  private userId = null;
+  private isLoggedIn = false;
 
-  mounted() {
+  created() {
     this.checkLoggedIn();
   }
 
   private checkLoggedIn() {
     axios.get("https://dog-sundress.cyclic.app/auth/check").then((res) => {
-      if (res.data.user) {
-        this.userId = res.data.user.id;
-      }
+      console.log(this.isLoggedIn);
+      console.log(res.data);
+      this.isLoggedIn = res.data.isLoggedIn;
     });
   }
 }

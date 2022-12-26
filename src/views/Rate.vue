@@ -59,7 +59,7 @@ export default class Rate extends Vue {
   private sortType: SortType = SortType.RecentlyPlayed;
   SortType: any = SortType;
 
-  created() {
+  mounted() {
     this.loadOwnedGames();
   }
 

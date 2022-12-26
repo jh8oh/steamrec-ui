@@ -39,10 +39,6 @@ import Settings from "./components/Settings.vue";
 import Rate from "./Rate.vue";
 import Rec from "./Rec.vue";
 
-class Prop {
-  userId!: string;
-}
-
 @Options({
   components: {
     Settings,
@@ -50,11 +46,11 @@ class Prop {
     Rec,
   },
 })
-export default class Dashboard extends Vue.with(Prop) {
+export default class Dashboard extends Vue {
   private settingsDialog = false;
   private isRate = true;
 
-  created() {
+  mounted() {
     this.getAllGamesWithRatings();
   }
 
