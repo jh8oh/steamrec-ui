@@ -1,6 +1,7 @@
 <template>
   <div id="login" class="view">
     <div id="login-content">
+      <img id="steamrec" src="../assets/steamrec.png" />
       <h1>Login to your Steam account</h1>
       <button @click="login()">
         Sign in using <img src="../assets/steam_logo.png" /> Steam
