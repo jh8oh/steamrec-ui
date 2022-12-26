@@ -23,7 +23,7 @@ export default class App extends Vue {
   }
 
   private checkLoggedIn() {
-    axios.get("https://steamrec.cyclic.app/auth/check").then((res) => {
+    axios.get("https://dog-sundress.cyclic.app/auth/check").then((res) => {
       if (res.data.user) {
         this.userId = res.data.user.id;
       }

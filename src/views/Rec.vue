@@ -222,7 +222,7 @@ export default class Rec extends Vue {
       store.state.isRatingUpdateNeeded
     ) {
       axios
-        .post("https://steamrec.cyclic.app/data/recommend", {
+        .post("https://dog-sundress.cyclic.app/data/recommend", {
           ownedGames: this.games.map((it) => ({
             id: it.id,
             rating: it.rating,
@@ -242,7 +242,7 @@ export default class Rec extends Vue {
 
   private refreshRecWithNewFilter() {
     axios
-      .post("https://steamrec.cyclic.app/data/recommend/update", {
+      .post("https://dog-sundress.cyclic.app/data/recommend/update", {
         filter: this.filter,
       })
       .then((res) => {
@@ -251,9 +251,11 @@ export default class Rec extends Vue {
   }
 
   private moreRec() {
-    axios.get("https://steamrec.cyclic.app/data/recommend/more").then((res) => {
-      this.setRecommendedGames(res.data as RecommendedGame[]);
-    });
+    axios
+      .get("https://dog-sundress.cyclic.app/data/recommend/more")
+      .then((res) => {
+        this.setRecommendedGames(res.data as RecommendedGame[]);
+      });
   }
 
   // Getters & Setters

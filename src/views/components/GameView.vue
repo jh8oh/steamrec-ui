@@ -75,7 +75,7 @@ export default class GameView extends Vue.with(Prop) {
   private rate(rating: number) {
     (this.game as OwnedGame).rating = rating;
 
-    axios.post("https://steamrec.cyclic.app/data/ratings/rate", {
+    axios.post("https://dog-sundress.cyclic.app/data/ratings/rate", {
       gameId: this.game.id,
       rating: rating,
     });
