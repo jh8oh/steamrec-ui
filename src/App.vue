@@ -24,8 +24,6 @@ export default class App extends Vue {
 
   private checkLoggedIn() {
     axios.get("https://dog-sundress.cyclic.app/auth/check").then((res) => {
-      console.log(this.isLoggedIn);
-      console.log(res.data);
       this.isLoggedIn = res.data.isLoggedIn;
     });
   }
